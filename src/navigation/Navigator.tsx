@@ -12,11 +12,7 @@ const Stack = createNativeStackNavigator<RootStackParams>()
 
 export const Navigator = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false
-      }}
-    >
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="CoinScreen" component={CoinScreen} />
     </Stack.Navigator>

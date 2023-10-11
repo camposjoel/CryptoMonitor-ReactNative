@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react'
-import { Coin } from '../interfaces/Coin'
+import { Coin, CoinsResponse } from '../interfaces/Coin'
 
 export const useCoins = () => {
   const [coins, setCoins] = useState<Coin[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    setIsLoading(true)
-    fetch('https://api.coincap.io/v2/assets')
-      .then(res => res.json())
-      .then(data => {
-        setCoins(data.data)
-        setIsLoading(false)
-      })
+    getCoinsAssets()
   }, [])
+
+  const getCoinsAssets = async () => {
+    setIsLoading(true)
+    const resp = await fetch('https://api.coincap.io/v2/assets')
+    const { data } = await resp.json() as CoinsResponse
+    setCoins(data)
+    setIsLoading(false)
+  }
 
   return {
     coins,
