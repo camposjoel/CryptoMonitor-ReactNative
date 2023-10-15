@@ -4,6 +4,7 @@ import { Coin, CoinsResponse } from '../interfaces/Coin'
 export const useCoins = () => {
   const [coins, setCoins] = useState<Coin[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [offset, setOffset] = useState(0)
 
   useEffect(() => {
     getCoinsAssets()
@@ -11,14 +12,16 @@ export const useCoins = () => {
 
   const getCoinsAssets = async () => {
     setIsLoading(true)
-    const resp = await fetch('https://api.coincap.io/v2/assets')
+    const resp = await fetch(`https://api.coincap.io/v2/assets?limit=50&offset=${offset}`)
     const { data } = await resp.json() as CoinsResponse
-    setCoins(data)
+    setCoins([...coins, ...data])
     setIsLoading(false)
+    setOffset(offset + 50)
   }
 
   return {
     coins,
-    isLoading
+    isLoading,
+    getCoinsAssets
   }
 }

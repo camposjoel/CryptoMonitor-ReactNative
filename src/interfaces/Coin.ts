@@ -17,3 +17,13 @@ export interface Coin {
   vwap24Hr: string,
   explorer: string
 }
+
+export interface CoinHistoryResponse {
+  data: CoinTimepoint[],
+  timestamp: number
+}
+
+export interface CoinTimepoint {
+  priceUsd: string,
+  time: number
+}
