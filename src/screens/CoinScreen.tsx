@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Image, View } from 'react-native'
 import { Appbar } from 'react-native-paper'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -7,21 +6,21 @@ import { RootStackParams } from '../navigation/Navigator'
 import { CryptoPrice } from '../components/CryptoPrice'
 import { CryptoVariation } from '../components/CryptoVariation'
 import { CryptoChart } from '../components/CryptoChart'
+import { useImageAsset } from '../hooks/UseImageAsset'
+import { useCoinHistory } from '../hooks/UseCoinHistory'
 
 interface Props extends NativeStackScreenProps<RootStackParams, 'CoinScreen'> { }
 
 export const CoinScreen = ({ navigation, route }: Props) => {
   const { coin } = route.params
-  const [imageUri, setImageUri] = useState<string>(`https://cryptologos.cc/logos/${coin.id}-${coin.symbol.toLowerCase()}-logo.png`)
-
-  const loadFallbackImage = () => {
-    setImageUri(`https://static.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png`)
-  }
+  const { bgColor, imageUri, loadFallback } = useImageAsset(coin.id, coin.symbol)
+  const { coinHistory, isLoading } = useCoinHistory(coin.id, 'h1')
 
   return (
     <LinearGradient
-      colors={['white', 'lightgray', 'gray']}
+      colors={['white', bgColor]}
       start={{ x: 0.5, y: 0.1 }}
+      end={{ x: 0.5, y: 1.4 }}
       style={{ display: 'flex', flex: 1 }}
     >
       <View>
@@ -33,14 +32,14 @@ export const CoinScreen = ({ navigation, route }: Props) => {
         <Image
           style={{ width: 125, height: 125, alignSelf: 'center', marginTop: 20 }}
           source={{ uri: imageUri }}
-          onError={() => loadFallbackImage()}
+          onError={() => loadFallback()}
         />
 
         <CryptoPrice price={coin.priceUsd} />
 
         <CryptoVariation variation={coin.changePercent24Hr} />
 
-        <CryptoChart coinName={coin.id} />
+        <CryptoChart coinPrices={coinHistory.prices} coinTimes={coinHistory.times} isLoading={isLoading} />
       </View>
     </LinearGradient>
   )

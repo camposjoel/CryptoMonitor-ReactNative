@@ -10,7 +10,7 @@ import { Coin } from '../interfaces/Coin'
 type Props = NativeStackScreenProps<RootStackParams, 'HomeScreen'>
 
 export const HomeScreen = ({ navigation }: Props) => {
-  const { coins, isLoading, getCoinsAssets } = useCoins()
+  const { coins, getCoinsAssets } = useCoins()
 
   const handlePress = (coin: Coin) => {
     navigation.navigate('CoinScreen', { coin })

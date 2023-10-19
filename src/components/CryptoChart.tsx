@@ -1,47 +1,34 @@
 import { Dimensions, StyleSheet, View } from 'react-native'
 import { ActivityIndicator, Text } from 'react-native-paper'
 import { LineChart } from 'react-native-chart-kit'
-import { useCoinHistory } from '../hooks/UseCoinHistory'
 
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 interface Props {
-  coinName: string
+  coinTimes: string[],
+  coinPrices: number[],
+  isLoading: boolean
 }
 
-export const CryptoChart = ({ coinName }: Props) => {
-  const { coinHistory, isLoading } = useCoinHistory(coinName, 'h1')
-
-  const dateFormatter = (datetime: number) => {
-    const date = new Date(datetime)
-
-    const formatter = new Intl.DateTimeFormat('en-US', {
-      timeZone: 'America/Mexico_City',
-      hourCycle: 'h23',
-      hour: '2-digit',
-      minute: '2-digit'
-    })
-
-    return formatter.format(date)
-  }
+export const CryptoChart = ({ coinPrices, coinTimes, isLoading }: Props) => {
 
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size={'large'} />
+        <ActivityIndicator size={'large'} color='lightgray' />
       </View>
     )
   }
 
   return (
     <View style={styles.container}>
-      {coinHistory.length > 0 ?
+      {coinPrices.length > 0 ?
         <LineChart
           data={{
-            labels: coinHistory.map(item => dateFormatter(item.time)).slice(-12),
+            labels: coinTimes,
             datasets: [
               {
-                data: coinHistory.map(item => +item.priceUsd).slice(-12)
+                data: coinPrices
               }
             ]
           }}
@@ -58,7 +45,6 @@ export const CryptoChart = ({ coinName }: Props) => {
             useShadowColorFromDataset: false
           }}
           bezier
-          verticalLabelRotation={45}
           style={{ borderRadius: 10 }}
         />
         : <Text variant='bodyMedium' style={{ color: 'gray' }}>No history information</Text>
