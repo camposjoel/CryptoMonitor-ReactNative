@@ -27,13 +27,15 @@ const styles = StyleSheet.create({
     height: 40
   },
   chip: {
-    width: 100,
+    width: 120,
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     backgroundColor: '#F3F3F3',
+    opacity: 0.5,
+    elevation: 9
   },
   variationPositive: {
     color: 'green'

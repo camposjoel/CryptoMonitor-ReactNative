@@ -12,7 +12,9 @@ const options: NativeStackNavigationOptions = {
   headerShown: false,
   contentStyle: {
     backgroundColor: 'white'
-  } 
+  },
+  statusBarStyle: 'dark',
+  statusBarColor: 'white'
 }
 
 const Stack = createNativeStackNavigator<RootStackParams>()

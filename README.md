@@ -2,8 +2,13 @@
 
 ## Features
 - Fetch data from API
-- List items with scrollview
+- List items with FlatList
+- Lazy loading
+- Charts
 - Styling
+
+## Screenshots
+<img src="https://i.ibb.co/JqMP8W9/Screens-App-Crypto.png" width="600">
 
 ## Step 1: Start the Metro Server
 
