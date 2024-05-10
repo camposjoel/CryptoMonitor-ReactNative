@@ -13,7 +13,7 @@ export const ListItem = ({ coin, onPressAction }: Props) => {
       title={coin.name}
       titleStyle={styles.listItemText}
       onPress={() => onPressAction(coin)}
-      left={() => <Avatar.Image style={{ marginTop: 6 }} size={26} source={{ uri: `https://static.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png` }} />}
+      left={() => <Avatar.Image style={{ marginTop: 6, backgroundColor: 'transparent' }} size={28} source={{ uri: `https://static.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png` }} />}
       right={() => <Text style={styles.listItemRight}>{coin.symbol}</Text>}
       style={styles.listItem}
     />

@@ -24,7 +24,7 @@ export const CoinScreen = ({ navigation, route }: Props) => {
       style={{ display: 'flex', flex: 1 }}
     >
       <View>
-        <Appbar.Header mode='center-aligned'>
+        <Appbar.Header mode='center-aligned' style={{ backgroundColor: 'transparent' }}>
           <Appbar.BackAction onPress={() => navigation.pop()} />
           <Appbar.Content title={coin.name} titleStyle={{ fontSize: 25 }} />
         </Appbar.Header>
