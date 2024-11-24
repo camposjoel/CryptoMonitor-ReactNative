@@ -1,4 +1,7 @@
-import { NativeStackNavigationOptions, createNativeStackNavigator } from '@react-navigation/native-stack'
+import {
+  NativeStackNavigationOptions,
+  createNativeStackNavigator
+} from '@react-navigation/native-stack'
 import { HomeScreen } from '../screens/HomeScreen'
 import { CoinScreen } from '../screens/CoinScreen'
 import { Coin } from '../interfaces/Coin'
@@ -13,8 +16,7 @@ const options: NativeStackNavigationOptions = {
   contentStyle: {
     backgroundColor: 'white'
   },
-  statusBarStyle: 'dark',
-  statusBarColor: 'white'
+  statusBarStyle: 'dark'
 }
 
 const Stack = createNativeStackNavigator<RootStackParams>()
@@ -25,5 +27,5 @@ export const Navigator = () => {
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="CoinScreen" component={CoinScreen} />
     </Stack.Navigator>
-  );
+  )
 }

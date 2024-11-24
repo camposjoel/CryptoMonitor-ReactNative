@@ -9,11 +9,14 @@ import { CryptoChart } from '../components/CryptoChart'
 import { useImageAsset } from '../hooks/UseImageAsset'
 import { useCoinHistory } from '../hooks/UseCoinHistory'
 
-interface Props extends NativeStackScreenProps<RootStackParams, 'CoinScreen'> { }
+interface Props extends NativeStackScreenProps<RootStackParams, 'CoinScreen'> {}
 
 export const CoinScreen = ({ navigation, route }: Props) => {
   const { coin } = route.params
-  const { bgColor, imageUri, loadFallback } = useImageAsset(coin.id, coin.symbol)
+  const { bgColor, imageUri, loadFallback } = useImageAsset(
+    coin.id,
+    coin.symbol
+  )
   const { coinHistory, isLoading } = useCoinHistory(coin.id, 'h1')
 
   return (
@@ -24,13 +27,21 @@ export const CoinScreen = ({ navigation, route }: Props) => {
       style={{ display: 'flex', flex: 1 }}
     >
       <View>
-        <Appbar.Header mode='center-aligned' style={{ backgroundColor: 'transparent' }}>
+        <Appbar.Header
+          mode="center-aligned"
+          style={{ backgroundColor: 'transparent' }}
+        >
           <Appbar.BackAction onPress={() => navigation.pop()} />
           <Appbar.Content title={coin.name} titleStyle={{ fontSize: 25 }} />
         </Appbar.Header>
 
         <Image
-          style={{ width: 125, height: 125, alignSelf: 'center', marginTop: 20 }}
+          style={{
+            width: 125,
+            height: 125,
+            alignSelf: 'center',
+            marginTop: 20
+          }}
           source={{ uri: imageUri }}
           onError={() => loadFallback()}
         />
@@ -39,7 +50,11 @@ export const CoinScreen = ({ navigation, route }: Props) => {
 
         <CryptoVariation variation={coin.changePercent24Hr} />
 
-        <CryptoChart coinPrices={coinHistory.prices} coinTimes={coinHistory.times} isLoading={isLoading} />
+        <CryptoChart
+          coinPrices={coinHistory.prices}
+          coinTimes={coinHistory.times}
+          isLoading={isLoading}
+        />
       </View>
     </LinearGradient>
   )
