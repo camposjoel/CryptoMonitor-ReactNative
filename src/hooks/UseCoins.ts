@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { COINCAP_KEY } from '@env';
+import { environment } from '../environments/environment'
 import { Coin, CoinsResponse } from '../interfaces/Coin'
 
 export const useCoins = () => {
@@ -13,9 +13,9 @@ export const useCoins = () => {
 
   const getCoinsAssets = async () => {
     setIsLoading(true)
-    const resp = await fetch(`https://api.coincap.io/v2/assets?limit=25&offset=${offset}`, {
+    const resp = await fetch(`${environment.coincapApiUrl}/assets?limit=25&offset=${offset}`, {
       headers: {
-        'Authorization': `Bearer ${COINCAP_KEY}`
+        'Authorization': `Bearer ${environment.coincapApiKey}`
       }
     })
     const { data } = await resp.json() as CoinsResponse

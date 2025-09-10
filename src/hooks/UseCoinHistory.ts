@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { CoinHistoryResponse } from '../interfaces/Coin'
+import { environment } from '../environments/environment'
 
 type Interval = 'm1' | 'm5' | 'm15' | 'm30' | 'h1' | 'h2' | 'h6' | 'h12' | 'd1'
 type CoinTimepointchart = {
@@ -20,7 +21,11 @@ export const useCoinHistory= (id: string, interval: Interval = 'h12') => {
   const getCoinsAssets = async () => {
     setIsLoading(true)
     try {
-      const resp = await fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=${interval}`)
+      const resp = await fetch(`${environment.coincapApiUrl}/assets/${id}/history?interval=${interval}`, {
+        headers: {
+          'Authorization': `Bearer ${environment.coincapApiKey}`
+        }
+      })
       const { data } = await resp.json() as CoinHistoryResponse
       const cointTimes = data.map(coin => dateFormatter(coin.time)).slice(-12).filter((_, i) => i % 2 === 0)
       const coinPrices = data.map(coin => +coin.priceUsd).slice(-12)

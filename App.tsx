@@ -1,6 +1,7 @@
 import { PaperProvider } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
 import { Navigator } from './src/navigation/Navigator'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 function App() {
 
@@ -8,7 +9,9 @@ function App() {
     <>
       <NavigationContainer>
         <PaperProvider>
-          <Navigator />
+          <SafeAreaView style={{ flex: 1 }}>
+            <Navigator />
+          </SafeAreaView>
         </PaperProvider>
       </NavigationContainer>
     </>
